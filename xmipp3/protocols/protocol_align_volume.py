@@ -163,6 +163,14 @@ class XmippProtAlignVolume(ProtAlignVolume):
                       label='Initial scale')  
         
         form.addParallelSection(threads=8, mpi=1)
+        form.addParam('binThreads', params.IntParam,
+                      label='threads',
+                      default=2,
+                      help='Number of threads used by Xmipp each time it is called in the protocol execution. For '
+                           'example, if 3 Scipion threads and 3 Xmipp threads are set, the particles will be '
+                           'processed in groups of 2 at the same time with a call of Xmipp with 3 threads each, so '
+                           '6 threads will be used at the same time. Beware the memory of your machine has '
+                           'memory enough to load together the number of particles specified by Scipion threads.')
         
     #--------------------------- INSERT steps functions --------------------------------------------    
     def _insertAllSteps(self):
