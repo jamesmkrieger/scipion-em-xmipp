@@ -92,7 +92,7 @@ class XmippProtComputeLikelihood(ProtAnalysis3D):
                       condition='optimizeGray',
                       help='The actual gray value can be at most as small as 1-change or as large as 1+change')
 
-        form.addParam('ignoreCTF', BooleanParam, label="Do not apply CTF: ", default=True, expertLevel=LEVEL_ADVANCED,
+        form.addParam('ignoreCTF', BooleanParam, label="Do not apply CTF: ", default=False, expertLevel=LEVEL_ADVANCED,
                       help='This should be used when images are treated with a Weiner filter instead')
 
         form.addParam('printTerms', BooleanParam, label="Print terms of LL: ", default=False, expertLevel=LEVEL_ADVANCED,
