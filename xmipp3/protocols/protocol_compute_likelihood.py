@@ -92,6 +92,9 @@ class XmippProtComputeLikelihood(ProtAnalysis3D):
                       condition='optimizeGray',
                       help='The actual gray value can be at most as small as 1-change or as large as 1+change')
 
+        form.addParam('ignoreCTF', BooleanParam, label="Do not apply CTF: ", default=True, expertLevel=LEVEL_ADVANCED,
+                      help='This should be used when images are treated with a Weiner filter instead')
+
         form.addParam('printTerms', BooleanParam, label="Print terms of LL: ", default=False, expertLevel=LEVEL_ADVANCED,
                       help='Whether to print terms 1 and 2, LL and noise variance')
 
@@ -162,7 +165,10 @@ class XmippProtComputeLikelihood(ProtAnalysis3D):
         args = "-i %s -o %s --ref %s --sampling %f --oresiduals %s --oprojections %s" % (fnAngles, anglesOutFn, fnVol, Ts, fnResiduals, fnProjections)
 
         if self.optimizeGray:
-            args+=" --optimizeGray --max_gray_scale %f"%self.maxGrayChange
+            args+=" --optimizeGray --max_gray_scale %f "%self.maxGrayChange
+
+        if self.ignoreCTF:
+            args+=" --ignoreCTF "
 
         self.runJob(prog, args, numberOfMpi=self.numberOfMpi.get())
 
