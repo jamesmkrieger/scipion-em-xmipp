@@ -39,7 +39,9 @@ from pwem import emlib
 import pwem.emlib.metadata as md
 
 from pyworkflow import VERSION_1_1
-from pyworkflow.protocol.params import PointerParam, FloatParam, BooleanParam, IntParam
+from pyworkflow.protocol.params import (PointerParam, StringParam, FloatParam, 
+                                        BooleanParam, IntParam, 
+                                        USE_GPU, GPU_LIST)
 from pyworkflow.protocol.constants import LEVEL_ADVANCED, STEPS_PARALLEL
 
 
@@ -49,7 +51,7 @@ import xmippLib
 
 
 class XmippProtComputeLikelihood(ProtAnalysis3D):
-    """This protocol computes the log likelihood of a set of particles with assigned angles when compared to a set of maps or atomic models"""
+    """This protocol computes the likelihood of a set of particles with assigned angles when compared to a set of maps or atomic models"""
 
     _label = 'log likelihood'
     _lastUpdateVersion = VERSION_1_1

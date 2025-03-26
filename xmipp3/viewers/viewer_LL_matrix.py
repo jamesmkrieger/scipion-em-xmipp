@@ -118,15 +118,11 @@ class XmippLogLikelihoodViewer(ProtocolViewer):
 
     def _viewLL(self, paramName):
         """ visualization of log likelihood matrix for selected particles and ref volumes."""
-        partNumber1 = self.partNumber1.get() if self.partNumber1.get() != -1 else 1
-        partNumber2 = self.partNumber2.get() if self.partNumber2.get() != -1 else len(self.particles)
-        x = self._checkNumbers(partNumber1, partNumber2, 'particle')
+        x, partNumber1, partNumber2 = self.handleParticleNumbers()
         if x is not True:
             return x
 
-        volNumber1 = self.volNumber1.get() if self.volNumber1.get() != -1 else 1
-        volNumber2 = self.volNumber2.get() if self.volNumber2.get() != -1 else len(self.refs)
-        x = self._checkNumbers(volNumber1, volNumber2, 'volume')
+        x, volNumber1, volNumber2 = self.handleVolumeNumbers()
         if x is not True:
             return x
 
@@ -176,15 +172,11 @@ class XmippLogLikelihoodViewer(ProtocolViewer):
 
     def _viewRelativeLL(self, paramName):
         """ visualization of relative log likelihood histogram for  for selected particles and ref volumes."""
-        partNumber1 = self.partNumber1.get() if self.partNumber1.get() != -1 else 1
-        partNumber2 = self.partNumber2.get() if self.partNumber2.get() != -1 else len(self.particles)
-        x = self._checkNumbers(partNumber1, partNumber2, 'particle')
+        x, partNumber1, partNumber2 = self.handleParticleNumbers()
         if x is not True:
             return x
 
-        volNumber1 = self.volNumber1.get() if self.volNumber1.get() != -1 else 1
-        volNumber2 = self.volNumber2.get() if self.volNumber2.get() != -1 else len(self.refs)
-        x = self._checkNumbers(volNumber1, volNumber2, 'volume')
+        x, volNumber1, volNumber2 = self.handleVolumeNumbers()
         if x is not True:
             return x
 
@@ -266,3 +258,14 @@ class XmippLogLikelihoodViewer(ProtocolViewer):
                                          title=_invalidInputStr)]
 
         return True
+
+
+    def handleParticleNumbers(self):
+        partNumber1 = self.partNumber1.get() if self.partNumber1.get() != -1 else 1
+        partNumber2 = self.partNumber2.get() if self.partNumber2.get() != -1 else len(self.particles)
+        return partNumber1, partNumber2, self._checkNumbers(partNumber1, partNumber2, 'particle')
+
+    def handleVolumeNumbers(self):
+        volNumber1 = self.volNumber1.get() if self.volNumber1.get() != -1 else 1
+        volNumber2 = self.volNumber2.get() if self.volNumber2.get() != -1 else len(self.refs)
+        return volNumber1, volNumber2, self._checkNumbers(volNumber1, volNumber2, 'volume')
